@@ -221,13 +221,25 @@ export default function Step1() {
                     <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-cyan-400" />
                     <Input
                       id="travelers"
-                      type="number"
-                      min="1"
-                      max="20"
+                      type="text"
+                      inputMode="numeric"
                       value={formData.travelers}
-                      onChange={(e) =>
-                        setFormData({ ...formData, travelers: Math.max(1, Math.min(20, parseInt(e.target.value) || 1)) })
-                      }
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (value === "" || value === "0") {
+                          setFormData({ ...formData, travelers: 0 });
+                        } else {
+                          const num = parseInt(value);
+                          if (!isNaN(num) && num >= 1 && num <= 20) {
+                            setFormData({ ...formData, travelers: num });
+                          }
+                        }
+                      }}
+                      onBlur={() => {
+                        if (formData.travelers === 0 || !formData.travelers) {
+                          setFormData({ ...formData, travelers: 1 });
+                        }
+                      }}
                       className="pl-10 py-6 text-lg text-center glass border-white/20 focus:border-cyan-400 focus:ring-cyan-400/50 transition-all"
                     />
                   </div>
