@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { CinematicBackground } from "@/components/CinematicBackground";
+import { AnimatedBackground } from "@/components/AnimatedBackground";
 import { FeatureCard } from "@/components/FeatureCard";
 import { Sparkles, Route, Shield, Download, Calculator, LogOut, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -58,7 +58,7 @@ export default function Landing() {
     description: "Track, split, and convert expenses in real time."
   }];
   return <div className="min-h-screen relative overflow-hidden">
-      <CinematicBackground />
+      <AnimatedBackground />
 
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 glass-strong">
