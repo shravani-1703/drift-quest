@@ -56,13 +56,13 @@ export function AnimatedBackground() {
             className="absolute inset-0 bg-cover bg-center"
             style={{
               backgroundImage: `url(${scene.image})`,
-              filter: "blur(8px)",
+              filter: "blur(3px)",
             }}
           />
 
           <div className={`absolute inset-0 bg-gradient-to-br ${scene.gradient}`} />
 
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30" />
         </motion.div>
       </AnimatePresence>
 
