@@ -2,11 +2,50 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { AnimatedBackground } from "@/components/AnimatedBackground";
 import { FeatureCard } from "@/components/FeatureCard";
-import { Sparkles, Route, Shield, Download, Calculator } from "lucide-react";
+import { Sparkles, Route, Shield, Download, Calculator, LogOut, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { toast } from "sonner";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function Landing() {
   const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    const checkAuth = () => {
+      const authStatus = localStorage.getItem("isAuthenticated");
+      const name = localStorage.getItem("userName");
+      setIsAuthenticated(authStatus === "true");
+      setUserName(name || "User");
+    };
+
+    checkAuth();
+    // Listen for storage changes (in case user logs in from another tab)
+    window.addEventListener("storage", checkAuth);
+    return () => window.removeEventListener("storage", checkAuth);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("userName");
+    setIsAuthenticated(false);
+    toast.success("Logged out successfully");
+  };
+
+  const handleStartPlanning = () => {
+    if (isAuthenticated) {
+      navigate("/step1");
+    } else {
+      navigate("/auth?mode=login");
+    }
+  };
 
   const features = [
     {
@@ -53,21 +92,51 @@ export default function Landing() {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex gap-3"
+            className="flex gap-3 items-center"
           >
-            <Button
-              variant="ghost"
-              className="text-foreground hover:text-cyan-400 transition-colors"
-              onClick={() => navigate("/auth?mode=login")}
-            >
-              Login
-            </Button>
-            <Button
-              className="bg-gradient-to-r from-cyan-500 to-violet-500 hover:from-cyan-600 hover:to-violet-600 text-white shadow-lg hover:shadow-cyan-500/50 transition-all duration-300"
-              onClick={() => navigate("/auth?mode=signup")}
-            >
-              Sign Up
-            </Button>
+            {isAuthenticated ? (
+              <>
+                <span className="text-sm text-muted-foreground hidden sm:inline">
+                  Welcome, <span className="text-cyan-400 font-medium">{userName}</span>
+                </span>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="glass rounded-full hover:bg-cyan-400/20 transition-all"
+                    >
+                      <User className="w-5 h-5 text-cyan-400" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="glass-strong border-white/20" align="end">
+                    <DropdownMenuItem
+                      onClick={handleLogout}
+                      className="cursor-pointer hover:bg-white/10"
+                    >
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Logout
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </>
+            ) : (
+              <>
+                <Button
+                  variant="ghost"
+                  className="text-foreground hover:text-cyan-400 transition-colors"
+                  onClick={() => navigate("/auth?mode=login")}
+                >
+                  Login
+                </Button>
+                <Button
+                  className="bg-gradient-to-r from-cyan-500 to-violet-500 hover:from-cyan-600 hover:to-violet-600 text-white shadow-lg hover:shadow-cyan-500/50 transition-all duration-300"
+                  onClick={() => navigate("/auth?mode=signup")}
+                >
+                  Sign Up
+                </Button>
+              </>
+            )}
           </motion.div>
         </div>
       </header>
@@ -102,7 +171,7 @@ export default function Landing() {
             <Button
               size="lg"
               className="text-lg px-8 py-6 bg-gradient-to-r from-cyan-500 to-violet-500 hover:from-cyan-600 hover:to-violet-600 text-white shadow-xl hover:shadow-cyan-500/50 transition-all duration-300 animate-glow-pulse"
-              onClick={() => navigate("/auth?mode=login")}
+              onClick={handleStartPlanning}
             >
               Start Planning →
             </Button>
@@ -110,7 +179,7 @@ export default function Landing() {
               size="lg"
               variant="outline"
               className="text-lg px-8 py-6 glass border-2 border-cyan-400/50 hover:border-cyan-400 hover:bg-cyan-400/10 text-foreground transition-all duration-300"
-              onClick={() => navigate("/auth?mode=login")}
+              onClick={handleStartPlanning}
             >
               Explore Community Trips
             </Button>
@@ -163,9 +232,9 @@ export default function Landing() {
             <Button
               size="lg"
               className="text-lg px-10 py-6 bg-gradient-to-r from-cyan-500 to-violet-500 hover:from-cyan-600 hover:to-violet-600 text-white shadow-xl hover:shadow-cyan-500/50 transition-all duration-300"
-              onClick={() => navigate("/auth?mode=signup")}
+              onClick={handleStartPlanning}
             >
-              Get Started Free →
+              {isAuthenticated ? "Start Planning →" : "Get Started Free →"}
             </Button>
           </div>
         </motion.div>
