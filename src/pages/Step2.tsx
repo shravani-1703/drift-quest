@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { GlassCard } from "@/components/ui/glass-card";
-import { AnimatedBackground } from "@/components/AnimatedBackground";
+import { CinematicBackground } from "@/components/CinematicBackground";
 import { ArrowLeft, Plus, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -86,7 +86,7 @@ export default function Step2() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-6 py-12 relative overflow-hidden">
-      <AnimatedBackground />
+      <CinematicBackground />
 
       {/* Header */}
       <div className="fixed top-0 left-0 right-0 z-40 glass-strong">
