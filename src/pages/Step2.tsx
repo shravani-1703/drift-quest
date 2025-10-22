@@ -85,7 +85,7 @@ export default function Step2() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 py-12 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center px-4 py-8 relative overflow-hidden">
       <AnimatedBackground />
 
       {/* Header */}
@@ -120,16 +120,16 @@ export default function Step2() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-4xl mt-20"
+        className="w-full max-w-4xl mt-16 mb-8"
       >
-        <GlassCard variant="strong" className="p-8 md:p-12 shadow-[0_0_60px_rgba(6,182,212,0.4)]">
+        <GlassCard variant="strong" className="p-6 md:p-8 shadow-[0_0_60px_rgba(6,182,212,0.4)]">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-center mb-10"
+            className="text-center mb-6"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-gradient-hero mb-3">
+            <h1 className="text-3xl md:text-4xl font-bold text-gradient-hero mb-3">
               What sparks your curiosity?
             </h1>
             <p className="text-lg text-muted-foreground">
@@ -139,7 +139,7 @@ export default function Step2() {
           </motion.div>
 
           {/* Interest Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3 mb-4">
             {interests.map((interest, index) => (
               <motion.button
                 key={interest}

@@ -57,7 +57,7 @@ export default function Step1() {
   }, [formData.tripType]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 py-12 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center px-4 py-8 relative overflow-hidden">
       <AnimatedBackground />
 
       {/* Header */}
@@ -88,16 +88,16 @@ export default function Step1() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-2xl mt-20"
+        className="w-full max-w-2xl mt-16 mb-8"
       >
-        <GlassCard variant="strong" className="p-8 md:p-12 shadow-[0_0_60px_rgba(6,182,212,0.4)]">
+        <GlassCard variant="strong" className="p-6 md:p-8 shadow-[0_0_60px_rgba(6,182,212,0.4)]">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="text-center mb-10"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-gradient-hero mb-3">
+            <h1 className="text-3xl md:text-4xl font-bold text-gradient-hero mb-3">
               Where to?
             </h1>
             <p className="text-lg text-muted-foreground">
@@ -207,19 +207,39 @@ export default function Step1() {
                 <Label htmlFor="travelers" className="text-foreground mb-2 block">
                   Number of Travelers
                 </Label>
-                <div className="relative">
-                  <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-cyan-400" />
-                  <Input
-                    id="travelers"
-                    type="number"
-                    min="1"
-                    max="20"
-                    value={formData.travelers}
-                    onChange={(e) =>
-                      setFormData({ ...formData, travelers: parseInt(e.target.value) || 1 })
-                    }
-                    className="pl-10 py-6 text-lg glass border-white/20 focus:border-cyan-400 focus:ring-cyan-400/50 transition-all"
-                  />
+                <div className="flex items-center gap-3">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    onClick={() => setFormData({ ...formData, travelers: Math.max(1, formData.travelers - 1) })}
+                    className="h-12 w-12 glass border-white/20 hover:border-cyan-400 hover:bg-cyan-400/10 text-cyan-400 text-xl"
+                  >
+                    −
+                  </Button>
+                  <div className="relative flex-1">
+                    <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-cyan-400" />
+                    <Input
+                      id="travelers"
+                      type="number"
+                      min="1"
+                      max="20"
+                      value={formData.travelers}
+                      onChange={(e) =>
+                        setFormData({ ...formData, travelers: Math.max(1, Math.min(20, parseInt(e.target.value) || 1)) })
+                      }
+                      className="pl-10 py-6 text-lg text-center glass border-white/20 focus:border-cyan-400 focus:ring-cyan-400/50 transition-all"
+                    />
+                  </div>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    onClick={() => setFormData({ ...formData, travelers: Math.min(20, formData.travelers + 1) })}
+                    className="h-12 w-12 glass border-white/20 hover:border-cyan-400 hover:bg-cyan-400/10 text-cyan-400 text-xl"
+                  >
+                    +
+                  </Button>
                 </div>
               </motion.div>
             )}
