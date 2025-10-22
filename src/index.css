@@ -116,11 +116,6 @@ All colors MUST be HSL.
     backdrop-filter: blur(40px) saturate(200%);
     border: 1px solid var(--glass-border);
   }
-  
-  /* Radial gradient utility */
-  .bg-gradient-radial {
-    background-image: radial-gradient(var(--tw-gradient-stops));
-  }
 }
 
 @layer utilities {

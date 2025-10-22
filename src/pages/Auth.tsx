@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { GlassCard } from "@/components/ui/glass-card";
-import { CinematicBackground } from "@/components/CinematicBackground";
+import { AnimatedBackground } from "@/components/AnimatedBackground";
 import { X, Mail, Lock, User, Phone } from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
@@ -68,7 +68,7 @@ export default function Auth() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-6 py-12 relative overflow-hidden">
-      <CinematicBackground />
+      <AnimatedBackground />
 
       {/* Close button */}
       <Button
