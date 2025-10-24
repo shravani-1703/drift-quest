@@ -15,9 +15,56 @@ export default function Step2() {
   const [customInterest, setCustomInterest] = useState("");
   const [destination, setDestination] = useState("");
 
-  // Interest categories that change based on destination
   const getInterestsForDestination = (dest: string) => {
-    const baseInterests = [
+    const destLower = dest.toLowerCase();
+
+    if (destLower.includes("andaman")) {
+      return [
+        "Beaches 🏖️",
+        "Islands 🏝️",
+        "Adventure Sports 🤿",
+        "Historical 🏰",
+        "Temples 🛕",
+        "Nightlife 🌃",
+        "Nature & Wildlife 🌿"
+      ];
+    }
+
+    if (destLower.includes("manali")) {
+      return [
+        "Mountains & Valleys 🏔",
+        "Adventure Sports 🧗‍♂️",
+        "Historical & Cultural 🏰",
+        "Nature & Waterfalls 🌿",
+        "Cafes & Nightlife ☕",
+        "Hotels & Stay 🛏",
+        "Local Markets & Shopping 🛍"
+      ];
+    }
+
+    if (destLower.includes("chikmagalur")) {
+      return [
+        "Lakes & Water Bodies 🏞️",
+        "Mountains & Hills ⛰️",
+        "Adventure & Trekking 🥾",
+        "Historical & Heritage 🏰",
+        "Temples & Spiritual Sites 🛕",
+        "Coffee Culture & Plantations ☕",
+        "Nature & Wildlife 🌿"
+      ];
+    }
+
+    if (destLower.includes("bihar")) {
+      return [
+        "Heritage & Historical 🏯",
+        "Spiritual & Religious 🛕",
+        "Nature & Wildlife 🌿",
+        "Urban & Museums 🏙",
+        "Food & Culture 🍲"
+      ];
+    }
+
+    return [
       "Must-see Attractions",
       "Museums & Art",
       "Great Food",
@@ -25,11 +72,8 @@ export default function Step2() {
       "Adventure Sports",
       "Nature & Wildlife",
       "Shopping",
-      "Nightlife",
-      "Photography Spots",
-      "Local Markets",
+      "Nightlife"
     ];
-    return baseInterests;
   };
 
   const [interests, setInterests] = useState<string[]>([]);
