@@ -79,9 +79,8 @@ export default function Step2() {
     }
 
     localStorage.setItem("step2Data", JSON.stringify({ interests: selectedInterests }));
-    toast.success("Great choices! Your personalized itinerary is ready.");
-    // For now, navigate back to home. In production, this would go to Step 3
-    navigate("/");
+    toast.success("Great choices! Let's pick your places.");
+    navigate("/step3");
   };
 
   return (
